@@ -1,0 +1,10 @@
+get http://localhost:3000/user
+
+content-type: application/json
+{
+  "nama": "pERDI",
+  "email": "PERDIANelek@adam.com",
+  "tgl_lahir": "2002-01-09",
+  "no_telp": "0999928281",
+  "alamat": "Singosari 2"
+}
