@@ -18,3 +18,30 @@ model data_mahasiswa {
   No_telp             String
   alamat              String
 }
+
+model user {
+  id                   Int             @default(autoincrement()) @id
+  user                String 
+  password            String 
+  role                String
+}
+
+model profil_industri {
+  id                  Int               @default(autoincrement()) @id
+  Nama_industri       String
+  Alamat              String
+  Contact_Person      String
+  mhs_daftar          daftar_industri[]
+}
+
+model daftar_industri {
+  id                  Int               @default(autoincrement()) @id
+  Nama_industri      String
+  NIM_ketua          String
+  NIM_anggota1       String
+  NIM_anggota2       String
+  Status             String   
+  author             profil_industri        @relation(fields: [authorId], references: [id])
+
+  authorId           Int         // relation scalar field  (used in the `@relation` attribute above)
+}
