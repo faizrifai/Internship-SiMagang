@@ -13,35 +13,58 @@ generator client {
 model data_mahasiswa {
   id                   Int             @default(autoincrement()) @id
   nama                String 
+  nim                 String
   email               String 
   tanggal_lahir       DateTime         @db.Date
   No_telp             String
   alamat              String
+  Status              String
+  data_mahasiswa      login[]    
+  data_logbook        logbook[]   
 }
 
-model user {
-  id                   Int             @default(autoincrement()) @id
+model logbook {
+  id                  Int               @default(autoincrement()) @id
+  tanggal             DateTime          @db.Date 
+  kegiatan            String 
+  kendala             String
+  solusi              String
+  lampiran            String
+  mhs_profil          data_mahasiswa     @relation(fields: [logbookId], references: [id])
+  logbookId           Int
+}
+
+model login {
+  id                  Int               @default(autoincrement()) @id
   user                String 
   password            String 
   role                String
+  mhs_profil          data_mahasiswa     @relation(fields: [userId], references: [id])
+  userId              Int
 }
 
 model profil_industri {
   id                  Int               @default(autoincrement()) @id
-  Nama_industri       String
+  Nama_industri       String            @unique
   Alamat              String
   Contact_Person      String
+  Status              String
   mhs_daftar          daftar_industri[]
 }
 
 model daftar_industri {
   id                  Int               @default(autoincrement()) @id
-  Nama_industri      String
-  NIM_ketua          String
-  NIM_anggota1       String
-  NIM_anggota2       String
-  Status             String   
-  author             profil_industri        @relation(fields: [authorId], references: [id])
+  Nama_industri      String             
+  NIM_ketua          String             @unique
+  NIM_anggota1       String             @unique
+  NIM_anggota2       String             @unique
+  Status             String
+  Surat_industri     String   
+  Durasi1            DateTime          @db.Date 
+  Durasi2            DateTime          @db.Date 
+  Dosen              String
+  industri           profil_industri    @relation(fields: [industriNama], references: [Nama_industri])
 
-  authorId           Int         // relation scalar field  (used in the `@relation` attribute above)
+  industriNama       String         // relation scalar field  (used in the `@relation` attribute above)
 }
+
